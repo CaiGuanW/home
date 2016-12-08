@@ -1,5 +1,4 @@
 # home
-# hello
 # author: cgw
 # company: china mobile south base
 # profession: operations
