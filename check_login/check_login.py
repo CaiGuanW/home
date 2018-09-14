@@ -21,6 +21,7 @@ class ip_info():
 
 
     def add_fail(self, fail_info):
+
         self.fail.append(fail_info)
 
 class succ_info():
@@ -31,6 +32,10 @@ class succ_info():
         self.count = count
         self.login_type = login_type
 
+    def add_count(self, num):
+
+        self.count = self.count + 1
+
 class fail_info():
 
     def __init__(self, user, count, failed_reason):
@@ -38,6 +43,10 @@ class fail_info():
         self.user = user
         self.count = count
         self.failed_reason = failed_reason
+
+    def add_count(self, num):
+
+        self.count = self.count + 1
 
 def get_location(ip):
 
@@ -110,7 +119,7 @@ def check_secure(checkmonth, checkday, LOGFILE):
                                     for single_succ_info in single_ip_info.succ:
                                         if single_succ_info.user == user and \
                                             single_succ_info.login_type == login_type:
-                                            single_succ_info.count = single_succ_info.count + 1
+                                            single_succ_info.add_count(1)
                                             is_find_user = 1
                                             break
                                     if is_find_user == 0:
@@ -120,8 +129,8 @@ def check_secure(checkmonth, checkday, LOGFILE):
                                 elif status == "fail":
                                     for single_fail_info in single_ip_info.fail:
                                         if single_fail_info.user == user and \
-                                            single_fail_info.reason == failed_reason:
-                                            single_fail_info.count = single_ip_info.count + 1
+                                            single_fail_info.failed_reason == failed_reason:
+                                            single_fail_info.add_count(1)
                                             is_find_user = 1
                                             break
                                     if is_find_user == 0:
@@ -155,23 +164,23 @@ if __name__ == '__main__':
         for ip_info in total_login:
             print "ip is %s, 来源:%s"%(ip_info.ip, get_location(ip_info.ip).encode("UTF8"))
         
-            print "登录成功的:"
+            print "    登录成功的:"
             if ip_info.succ != []:
                 for user_info in ip_info.succ:
-                    print "用户:%s 登录次数:%s 登录类型:%s"%(user_info.user, user_info.count, user_info.login_type)
+                    print "        用户:%s 登录次数:%s 登录类型:%s"%(user_info.user, user_info.count, user_info.login_type)
             else:
-                print "无"
+                print "        无"
 
-            print "登录失败的:"
+            print "    登录失败的:"
             if ip_info.fail != []:
                 for user_info in ip_info.fail:
-                    print "用户:%s 登录次数:%s 失败原因:%s"%(user_info.user, user_info.count, user_info.failed_reason)
+                    print "        用户:%s 登录次数:%s 失败原因:%s"%(user_info.user, user_info.count, user_info.failed_reason)
             else:
-                print "无"
+                print "        无"
     
         if bad_try != []:
             print "错误协议尝试的ip:"
             for ip in bad_try:
-                print ip, get_location(ip).encode("UTF8")
+                print "    ",ip, get_location(ip).encode("UTF8")
     check()
 
