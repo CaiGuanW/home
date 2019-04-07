@@ -1,6 +1,6 @@
 Desc: <br>
 ====
-    获取指定版本（7、8、9）tomcat的漏洞，并生成excel；
+    获取指定版本（7、8、9）tomcat的CVE漏洞编号和解决版本，并生成excel。
 Usage: <br>
 ==== 
     python tomcat_cve.py 9
