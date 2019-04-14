@@ -50,9 +50,9 @@ def sort_by_spec(all_ip_info, info, fil_num, filters, sort_num):
 
     print_level_1("%s统计信息"%info)
     if info == 'user':
-        sort_info = sort_count_list([a[sort_num] for a in all_ip_info if filters in a[fil_num]])
-    else:
         sort_info = sort_count_list([a[sort_num] for a in all_ip_info if a[fil_num] == filters])
+    else:
+        sort_info = sort_count_list([a[sort_num] for a in all_ip_info if filters in a[fil_num]])
     for m in sort_info:
         print_level_2("%s: %s 次数: %s"%(info, m[0], m[1]))
 
@@ -69,7 +69,7 @@ def print_type(all_ip_info):
         log_i = sort_count_list([a[4] for a in all_ip_info if a[2] == status])
         if log_i != []:
             for s in log_i:
-                print_level_2("使用 %s 登录成功 %s 次"%(s[0], s[1]))
+                print_level_2("使用 %s 登录 %s %s 次"%(s[0], status, s[1]))
 
 def print_brief(all_ip_info, num, type = None ):
 
@@ -229,17 +229,19 @@ def sort_by_input(all_ip_info, printnum, type, filters):
     global IP_NUM
 
     if type == "user":
+        fil_type = 'ip'
         num = USER_NUM
         fil_num = IP_NUM
         tmp = [ m for m in all_ip_info if filters in m[num] ]
     elif type == "ip":
+        fil_type = 'user'
         num = IP_NUM
         fil_num = USER_NUM
         tmp = [ m for m in all_ip_info if m[num] == filters ]
 
     print_brief(tmp, num, type = type)
     print_type(tmp)
-    sort_by_spec(tmp, type, num, filters, fil_num)
+    sort_by_spec(tmp, fil_type, num, filters, fil_num)
     print_detail(tmp)
 
 if __name__ == '__main__':
