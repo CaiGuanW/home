@@ -4,7 +4,12 @@ Desc: <br>
 Usage: <br>
 ==== 
     python check_secure.py --help
-    有四种工作模式：time|ip|user|fail
+    工作模式是需要指定的，有四种工作模式：time|ip|user|fail，默认是time模式；
+    --logdir用于指定secure日志路径，默认是var-log-secure；
+    --from_time和--end_time在四种工作模式下都可以使用，用于指定特定时间；
+    --min、--num、--printl仅在time模式下指定，分别用于统计周期、输出行数、和指定信息；
+    --user仅在user模式下，用于指定特定用户；
+    --ip仅在ip模式下，用于指定特定ip；
 Output: <br>
 ====
 1、time模式下，以时间为维度，按照间隔每60分钟进行过滤，共过滤10行，打印登录信息。 <br>
